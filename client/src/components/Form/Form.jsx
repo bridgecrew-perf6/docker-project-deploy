@@ -1,4 +1,5 @@
 import { useState } from "react";
+const axios = require("axios").default;
 
 import Input from "../Input/Input";
 import Submit from "../Submit/Submit";
@@ -19,11 +20,14 @@ export default function Form() {
     try {
       e.preventDefault();
 
-      const res = await fetch('')
-
+      const response = await axios.post(
+        "http://localhost/sendmessage",
+        inputFields
+      );
+      if (!response) throw new Error();
 
     } catch (error) {
-      console.warn("Чел...ты...:", error);
+      console.warn("Request error: ", error);
     }
   };
 
