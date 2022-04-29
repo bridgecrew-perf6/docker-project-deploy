@@ -1,0 +1,28 @@
+version: '3'
+
+services:
+  frontend:
+    tty: true
+    stdin_open: true
+    build: 
+      context: ./client
+    image: frontend-image
+    restart: always
+    volumes:
+      - ./client/src:/home/usr/app/src
+    ports:  
+      - "3000:3000"
+    environment:
+      - apigateway_host: backend
+      - apigateway_port: 5000
+  backend:
+    tty: true
+    stdin_open: true
+    build: 
+      context: ./server
+    image: backend-image
+    restart: always
+    volumes:
+      - ./server/src:/home/usr/app/src
+    ports:
+      - "5000:5000"
